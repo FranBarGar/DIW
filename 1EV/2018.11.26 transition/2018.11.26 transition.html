@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background: green;
+            transition: linear 3s;
+        }
+        div:hover {
+            background: red;
+            width: 300px;
+            height: 300px;
+        }
+
+        #rotar{
+            transition: linear 3s;
+        }
+        #rotar:active{
+            transform: rotate(20deg);
+        }
+
+        #mover{
+            transition: linear 3s;
+        }
+        #mover:active{
+            transform: translate(100px, 0px);
+        }
+
+        #escalar{
+            transition: linear 3s;
+        }
+        #escalar:active{
+            transform: scale(2, 3);
+        }
+
+        #skewX{
+            transition: linear 3s;
+        }
+        #skewX:active{
+            transform: skewX(20deg);
+        }
+
+        #skewY{
+            transition: linear 3s;
+        }
+        #skewY:active{
+            transform: skewX(20deg);
+        }
+
+        #skew{
+            transition: linear 3s;
+        }
+        #skew:active{
+            transform: skew(20deg, 10deg);
+        }
+
+        #matrix{
+            transition: linear 3s;
+        }
+        #matrix:active{
+            transform: matrix(1, -0.3, 0, 1, 0, 0);
+        }
+    </style>
+</head>
+<body>
+    <p>La idea es que la caja se haga mas grande cuando mantenemos el raton sobre ella</p>
+    <div></div>
+
+    <br>
+    <button id="rotar" type="button">rotate</button>
+    <br><br>
+    <button id="mover" type="button">translate</button>
+    <br><br>
+    <button id="escalar" type="button">scale</button>
+    <br><br>
+    <button id="skewX" type="button">skewX</button>
+    <br><br>
+    <button id="skewY" type="button">skewY</button>
+    <br><br>
+    <button id="skew" type="button">skew</button>
+    <br><br>
+    <button id="matrix" type="button">matrix</button>
+
+
+</body>
+</html>

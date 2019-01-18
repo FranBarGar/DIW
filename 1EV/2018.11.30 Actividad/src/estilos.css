@@ -1,0 +1,30 @@
+#principal{
+    height: 100%;
+}
+.reloj {
+    height: 60%;
+}
+.pequeño {
+    height: 10%;
+    right: 0px;
+    bottom: 0px;
+}
+#esfera, #milisegundero, #segundero, #minutero, #horario{
+    position: absolute;
+    transition: transform 1s linear;
+}
+#esfera{
+    z-index: 0;
+}
+#horario{
+    z-index: 1;
+}
+#minutero{
+    z-index: 2;
+}
+#segundero{
+    z-index: 3;
+}
+#milisegundero{
+    z-index: 4;
+}

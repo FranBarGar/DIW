@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Primer script con jQuery</title>
+    <script src="../JQuery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    /**
+     * Equivalente a $(document).ready() pero mas cortito.
+     * @return {void} No devuelve nada
+     */
+    $(function(){
+        $( "#button" ).click(desvanecer);
+    });
+
+    /**
+     * Funcion que se ejecuta al hacer click en el boton.
+     * Desvanece el #div a lo largo de 5 segundos.
+     * @return {void} No devuelve nada.
+     */
+    function desvanecer()
+    {
+        var $x = $("#div");
+        $x.css({"background-color": "blue"});
+        $x.animate({
+            opacity: 0.25,
+            left: "+=50",
+            height: "toggle"
+        }, 5000, aviso);
+    }
+
+    /**
+     * Funcion usada como callback, en este ejemplo es llamada tras la
+     * ejecucion de desvanecer.
+     * @return {void} No devuelve nada.
+     */
+    function aviso()
+    {
+        alert('Animación terminada');
+    }
+    </script>
+    <style media="screen">
+    #div{
+        width: 100px;
+        height: 100px;
+        background-color: green;
+    }
+    </style>
+</head>
+<body>
+    <button type="button" name="button" id="button">Click</button>
+    <div id="div">
+
+    </div>
+</body>
+</html>
