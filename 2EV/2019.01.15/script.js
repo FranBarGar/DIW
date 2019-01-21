@@ -10,6 +10,7 @@ $(function(){
         var number = $('#num').prop('value');
         if (number>2 && number<7) {
             $(this).hide();
+            $('input').hide();
             appendDivs($('body'), number);
             $('div').each(function(){
                 appendP($(this), arRandom(20, 10)*number)
