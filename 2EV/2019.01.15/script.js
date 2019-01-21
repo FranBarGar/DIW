@@ -17,8 +17,10 @@ $(function(){
             $('body').append(`<div style="
             display: block;
             bottom: 0;
-            min-height: 10%;
-            min-width: 100%;"></div>`);
+            position: absolute;
+            bottom: 0;
+            height: 10%;
+            width: 100%;"></div>`);
 
             $('div').mouseenter(mouseIn);
             $('div').mouseout(mouseOut);
@@ -93,7 +95,6 @@ function mouseIn() {
         clearInterval(inter);
         $('p').fadeIn(4000);
     }, 20000);
-    $('div').unbind('mouseenter');
 }
 
 /**
@@ -101,7 +102,6 @@ function mouseIn() {
  */
 function mouseOut()
 {
-    $('div').mouseenter(mouseIn);
     $('h1').css('color', 'red');
     setTimeout(function(){
         clearInterval(inter);
