@@ -1,5 +1,6 @@
 $(function(){
-
+    inter = null;
+    timeout = null;
     /**
      * Cuando se hace click en el boton este desaparece y se añaden los DIV
      * que se han pasado por parametro en el campo de texto, luego se añaden
@@ -9,22 +10,11 @@ $(function(){
     $('#boton1').click(function() {
         var number = $('#num').prop('value');
         if (number>2 && number<7) {
-            $(this).hide();
-            $('input').hide();
+            $('span').hide();
             appendDivs($('body'), number);
-            $('div').each(function(){
-                appendP($(this), arRandom(20, 10)*number)
-            });
-            $('body').append(`<div style="
-            display: block;
-            bottom: 0;
-            position: absolute;
-            bottom: 0;
-            height: 10%;
-            width: 100%;"></div>`);
 
-            $('div').mouseenter(mouseIn);
-            $('div').mouseout(mouseOut);
+            $('#oculto').mouseenter(mouseIn);
+            $('#oculto').mouseout(mouseOut);
         } else {
             alert('Debe introducir un numero entre 2 y 7 (ambos no incluidos)');
         }
@@ -46,23 +36,51 @@ var arRandom = (max, min) => (parseInt(Math.random()*(max-min+1))+min);
  * @param  {selector} selector Donde se van a añadir los DIVs.
  * @param  {[type]} num      Numero de DIVs que se van a añadir.
  */
-function appendDivs(selector, num)
+function appendDivs($selector, num)
 {
     for (var i = 0; i < num; i++) {
-        $(selector).append('<div></div>')
+        $selector.append(`<div>
+            <h1>Titulo</h1>
+            ${createElem('p', arRandom(20, 10)*num)}
+            </div>`);
     }
+    $selector.append(`<div id="oculto" style="
+                    display: block;
+                    bottom: 0;
+                    position: absolute;
+                    bottom: 0;
+                    height: 10%;
+                    width: 100%;"></div>`);
 }
 
 /**
- * Añade P a un selector.
- * @param  {selector} selector Donde se van a añadir los P.
- * @param  {int} num      Numero de P a añadir.
+ * Crea elementos con el selector pasado.
+ * @param  {string} selector Etiqueta del elemento a crear.
+ * @param  {int} num      Numero de elementos a crear.
+ * @return {string}          Cadena con los elementos creados.
  */
-function appendP(selector, num)
+function createElem(selector, num)
 {
-    $(selector).append('<h1>Titulo</h1>');
-    for (var i = 0; i < num; i++) {
-        $(selector).append(`<p>Parrafo ${i}</p>`);
+    var str = '';
+    for (var i=0; i<num; i++) {
+        str+=`<${selector}>Parrafo ${i}</${selector}>`;
+    }
+    return str;
+}
+
+function limpiarTimeout()
+{
+    if (timeout!==null) {
+        clearTimeout(timeout);
+        timeout = null;
+    }
+}
+
+function limpiarInterval()
+{
+    if (inter!==null) {
+        clearInterval(inter);
+        inter = null;
     }
 }
 
@@ -89,12 +107,19 @@ function fades(selector, time){
 function mouseIn() {
     var selector = $('p').toArray();
     var len = selector.length-1;
+    limpiarTimeout();
+    limpiarInterval();
+
+    var i = 1;
     inter = setInterval(function(){
+        console.log(++i);
         fades(selector[arRandom(len, 0)], arRandom(3000,1000));
     }, 100);
-    setTimeout(function(){
-        clearInterval(inter);
+
+    timeout = setTimeout(function(){
+        limpiarInterval();
         $('p').fadeIn(4000);
+        console.log('in');
     }, 20000);
 }
 
@@ -104,8 +129,11 @@ function mouseIn() {
 function mouseOut()
 {
     $('h1').css('color', 'red');
-    setTimeout(function(){
-        clearInterval(inter);
+    limpiarTimeout();
+
+    timeout = setTimeout(function(){
+        limpiarInterval();
         $('p').fadeIn(4000);
+        console.log('out');
     }, 5000);
 }
