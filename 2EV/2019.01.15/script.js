@@ -68,6 +68,9 @@ function createElem(selector, num)
     return str;
 }
 
+/**
+ * Limpia el timeout.
+ */
 function limpiarTimeout()
 {
     if (timeout!==null) {
@@ -76,6 +79,9 @@ function limpiarTimeout()
     }
 }
 
+/**
+ * Limpia el intervalo.
+ */
 function limpiarInterval()
 {
     if (inter!==null) {
@@ -90,11 +96,12 @@ function limpiarInterval()
  * @param  {[type]} time     Tiempo que duran ambos fades.
  */
 function fades(selector, time){
-    if (!$(selector).data('time')) {
+    if (!$(selector).data('efecto') && $(selector).data('time')!=time) {
         $(selector).fadeIn(time, function(){
             $(selector).data('time', time);
+            $(selector).data('efecto', true);
             $(selector).fadeOut(time, function(){
-                $(selector).removeData('time');
+                $(selector).data('efecto', false);
             });
         });
     }
@@ -110,16 +117,13 @@ function mouseIn() {
     limpiarTimeout();
     limpiarInterval();
 
-    var i = 1;
     inter = setInterval(function(){
-        console.log(++i);
         fades(selector[arRandom(len, 0)], arRandom(3000,1000));
     }, 100);
 
     timeout = setTimeout(function(){
         limpiarInterval();
         $('p').fadeIn(4000);
-        console.log('in');
     }, 20000);
 }
 
@@ -134,6 +138,5 @@ function mouseOut()
     timeout = setTimeout(function(){
         limpiarInterval();
         $('p').fadeIn(4000);
-        console.log('out');
     }, 5000);
 }
