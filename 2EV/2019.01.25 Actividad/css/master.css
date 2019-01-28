@@ -1,8 +1,15 @@
-div {
-    margin: 1px;
-    height: 100%;
+#ord {
+    z-index: -1000000000000;
+    right: 0;
+    top: 0;
+    position: absolute;
     width: 50%;
+    min-height: 750px;
+    vertical-align: top;
+    background-color: green;
 }
-#des img {
-    width: 30%;
+img {
+    width: 200px;
+    left: 250px;
+    position: absolute;
 }

@@ -1,11 +1,11 @@
-var isDragging = false;
-
 $(function(){
     loadImages();
 
 });
 
 function loadImages (){
+    var index=-100;
+
     var img = [
         'src/Barba Garcia, Francisco.jpg',
         'src/Barba Rodriguez, Arturo.jpg',
@@ -19,14 +19,31 @@ function loadImages (){
 
     var $elem = [];
     var $aux;
+    var pos = 10;
     for (var i = 0; i < img.length; i++) {
-        $aux = $(`<img id="${i}" src="${img[i]}" style="z-index: ${i};">`);
-        $aux.mousemove(function(e) {
-                $(this).css({'left':e.pageX, 'top':e.pageY, 'position':'absolute'});
-            });
+        $aux = $(`<img src="${img[i]}">`);
+        $aux.data('index', i);
+        $aux.draggable();
+        $aux.on('drag', function(){
+            var $selector = $('#ord');
+            var actual = $selector.data('orden');
+            var id = $(this).data('index');
+            $(this).css('z-index', index);
+            index+=1;
+            if (actual && actual>id) {
+                $(this).draggable({revert: true});
+            } else {
+                $selector.data('orden', index);
+            }
+        });
         $elem.push($aux);
     }
     var $elemDes = shuffle($elem);
+
+    for (var i = 0; i < $elemDes.length; i++) {
+        $elemDes[i].css({'z-index': i, 'top': `${pos}px`, 'position': 'absolute'});
+        pos+=60;
+    }
 
     var $selector = $('#des');
     for (var i = 0; i < $elemDes.length; i++) {
